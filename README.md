@@ -2,8 +2,8 @@
 ### 按照以下步骤分阶段创建火币api交易程序
 + [ ] 将所有API接口都运行一次 
   + [ ] 获取KLine
-    ```
-    def get_kline(symbol, period, size=150):
+```
+def get_kline(symbol, period, size=150):
     """
     :param symbol
     :param period: 可选值：{1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year }
@@ -16,10 +16,10 @@
 
     url = MARKET_URL + '/market/history/kline'
     return http_get_request(url, params)
-    ```
+```
   + [ ] 获取marketdepth
-  ```
-    def get_depth(symbol, type):
+```
+def get_depth(symbol, type):
     """
     :param symbol
     :param type: 可选值：{ percent10, step0, step1, step2, step3, step4, step5 }
@@ -30,11 +30,22 @@
     
     url = MARKET_URL + '/market/depth'
     return http_get_request(url, params)
-  ```
+```
+ + [ ] 获取detail
+ ```
+    def get_detail(symbol):
+      """
+      :param symbol
+      :return:
+      """
+      params = {'symbol': symbol}
 
+      url = MARKET_URL + '/market/detail'
+      return http_get_request(url, params)
+  ```
   + [ ] 获取tradedetail
   ```
-    def get_trade(symbol):
+def get_trade(symbol):
     """
     :param symbol
     :return:
@@ -47,7 +58,7 @@
 
   + [ ] 获取merge ticker
   ```
-    def get_ticker(symbol):
+def get_ticker(symbol):
     """
     :param symbol: 
     :return:
@@ -57,10 +68,9 @@
     url = MARKET_URL + '/market/detail/merged'
     return http_get_request(url, params)
   ```
-
-  + [ ] 获取 Market Detail 24小时成交量数据
+  + [ ] 获取Market Detail 24小时成交量数据
   ```
-    def get_detail(symbol):
+def get_detail(symbol):
     """
     :param symbol
     :return:
@@ -70,9 +80,9 @@
     url = MARKET_URL + '/market/detail'
     return http_get_request(url, params)
   ```
- + [ ] 获取  支持的交易对
+  + [ ] 获取  支持的交易对
  ```
-    def get_symbols(long_polling=None):
+def get_symbols(long_polling=None):
     """
     """
     params = {}
@@ -97,7 +107,7 @@ def get_accounts():
 
 - [ ] 获取当前账户资产
 ```
-    def get_balance(acct_id=None):
+def get_balance(acct_id=None):
     """
     :param acct_id
     :return:
@@ -112,9 +122,10 @@ def get_accounts():
     return api_key_get(params, url)
 ```
 
-- [ ] 下单
+#### 下单
 
-# 创建并执行订单
+- [ ] 创建并执行订单
+```
 def send_order(amount, source, symbol, _type, price=0):
     """
     :param amount: 
@@ -143,9 +154,10 @@ def send_order(amount, source, symbol, _type, price=0):
 
     url = '/v1/order/orders/place'
     return api_key_post(params, url)
+```
 
-
-# 撤销订单
+- [ ] 撤销订单
+```
 def cancel_order(order_id):
     """
     
@@ -155,9 +167,10 @@ def cancel_order(order_id):
     params = {}
     url = "/v1/order/orders/{0}/submitcancel".format(order_id)
     return api_key_post(params, url)
+```
 
-
-# 查询某个订单
+- [ ] 查询某个订单
+```
 def order_info(order_id):
     """
     
@@ -167,9 +180,10 @@ def order_info(order_id):
     params = {}
     url = "/v1/order/orders/{0}".format(order_id)
     return api_key_get(params, url)
+```
 
-
-# 查询某个订单的成交明细
+- [ ] 查询某个订单的成交明细
+```
 def order_matchresults(order_id):
     """
     
@@ -179,9 +193,10 @@ def order_matchresults(order_id):
     params = {}
     url = "/v1/order/orders/{0}/matchresults".format(order_id)
     return api_key_get(params, url)
+```
 
-
-# 查询当前委托、历史委托
+- [ ] 查询当前委托、历史委托
+```
 def orders_list(symbol, states, types=None, start_date=None, end_date=None, _from=None, direct=None, size=None):
     """
     
@@ -212,9 +227,10 @@ def orders_list(symbol, states, types=None, start_date=None, end_date=None, _fro
         params['size'] = size
     url = '/v1/order/orders'
     return api_key_get(params, url)
+```
 
-
-# 查询当前成交、历史成交
+- [ ] 查询当前成交、历史成交
+```
 def orders_matchresults(symbol, types=None, start_date=None, end_date=None, _from=None, direct=None, size=None):
     """
     
@@ -243,10 +259,11 @@ def orders_matchresults(symbol, types=None, start_date=None, end_date=None, _fro
         params['size'] = size
     url = '/v1/order/matchresults'
     return api_key_get(params, url)
+```
 
 
-
-# 申请提现虚拟币
+- [ ] 申请提现虚拟币
+```
 def withdraw(address, amount, currency, fee=0, addr_tag=""):
     """
     :param address_id: 
@@ -267,8 +284,10 @@ def withdraw(address, amount, currency, fee=0, addr_tag=""):
     url = '/v1/dw/withdraw/api/create'
 
     return api_key_post(params, url)
+```
 
-# 申请取消提现虚拟币
+- [ ] 申请取消提现虚拟币
+```
 def cancel_withdraw(address_id):
     """
     :param address_id: 
@@ -281,14 +300,12 @@ def cancel_withdraw(address_id):
     url = '/v1/dw/withdraw-virtual/{0}/cancel'.format(address_id)
 
     return api_key_post(params, url)
+```
 
+#### 借贷API
 
-'''
-借贷API
-'''
-
-# 创建并执行借贷订单
-
+- [ ] 创建并执行借贷订单
+```
 
 def send_margin_order(amount, source, symbol, _type, price=0):
     """
@@ -316,9 +333,9 @@ def send_margin_order(amount, source, symbol, _type, price=0):
 
     url = '/v1/order/orders/place'
     return api_key_post(params, url)
-
-# 现货账户划入至借贷账户
-
+```
+- [ ] 现货账户划入至借贷账户
+```
 
 def exchange_to_margin(symbol, currency, amount):
     """
@@ -333,9 +350,9 @@ def exchange_to_margin(symbol, currency, amount):
 
     url = "/v1/dw/transfer-in/margin"
     return api_key_post(params, url)
-
-# 借贷账户划出至现货账户
-
+```
+- [ ] 借贷账户划出至现货账户
+```
 
 def margin_to_exchange(symbol, currency, amount):
     """
@@ -350,8 +367,9 @@ def margin_to_exchange(symbol, currency, amount):
 
     url = "/v1/dw/transfer-out/margin"
     return api_key_post(params, url)
-
-# 申请借贷
+```
+- [ ] 申请借贷
+```
 def get_margin(symbol, currency, amount):
     """
     :param amount: 
@@ -364,8 +382,9 @@ def get_margin(symbol, currency, amount):
               "amount": amount}
     url = "/v1/margin/orders"
     return api_key_post(params, url)
-
-# 归还借贷
+```
+- [ ] 归还借贷
+```
 def repay_margin(order_id, amount):
     """
     :param order_id: 
@@ -376,8 +395,9 @@ def repay_margin(order_id, amount):
               "amount": amount}
     url = "/v1/margin/orders/{0}/repay".format(order_id)
     return api_key_post(params, url)
-
-# 借贷订单
+```
+- [ ] 借贷订单
+```
 def loan_orders(symbol, currency, start_date="", end_date="", start="", direct="", size=""):
     """
     :param symbol: 
@@ -399,9 +419,10 @@ def loan_orders(symbol, currency, start_date="", end_date="", start="", direct="
         params["size"] = size
     url = "/v1/margin/loan-orders"
     return api_key_get(params, url)
+```
 
-
-# 借贷账户详情,支持查询单个币种
+- [ ] 借贷账户详情,支持查询单个币种
+```
 def margin_balance(symbol):
     """
     :param symbol: 
@@ -413,6 +434,7 @@ def margin_balance(symbol):
         params['symbol'] = symbol
     
     return api_key_get(params, url)
+ ```
 + [x] 学习linux中的**screen**命令,解决远程服务器无法一直运行脚本的问题
 + [ ] 学习python logging模块
 + [ ] 制定选币策略
