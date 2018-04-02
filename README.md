@@ -58,8 +58,9 @@
     return http_get_request(url, params)
   ```
 
-# 获取 Market Detail 24小时成交量数据
-def get_detail(symbol):
+  + [ ] 获取 Market Detail 24小时成交量数据
+  ```
+    def get_detail(symbol):
     """
     :param symbol
     :return:
@@ -68,9 +69,10 @@ def get_detail(symbol):
 
     url = MARKET_URL + '/market/detail'
     return http_get_request(url, params)
-
-# 获取  支持的交易对
-def get_symbols(long_polling=None):
+  ```
+ + [ ] 获取  支持的交易对
+ ```
+    def get_symbols(long_polling=None):
     """
     """
     params = {}
@@ -91,10 +93,11 @@ def get_accounts():
     path = "/v1/account/accounts"
     params = {}
     return api_key_get(params, path)
+```
 
-
-# 获取当前账户资产
-def get_balance(acct_id=None):
+- [ ] 获取当前账户资产
+```
+    def get_balance(acct_id=None):
     """
     :param acct_id
     :return:
@@ -107,9 +110,9 @@ def get_balance(acct_id=None):
     url = "/v1/account/accounts/{0}/balance".format(acct_id)
     params = {"account-id": acct_id}
     return api_key_get(params, url)
+```
 
-
-# 下单
+- [ ] 下单
 
 # 创建并执行订单
 def send_order(amount, source, symbol, _type, price=0):
